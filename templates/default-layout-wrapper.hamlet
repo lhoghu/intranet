@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>#{pageTitle pc}
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    ^{pageHead pc}
+
+  <body>
+     <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation
+                    <span class="icon-bar">
+                    <span class="icon-bar">
+                    <span class="icon-bar">
+                <a class="navbar-brand" href=@{HomeR}>Intranet
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href=@{HomeR}>Home
+                    <li>
+                        <a href="/index">Index
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">Dropdown #
+                            <span class="caret">
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href=@{HomeR}>Home
+                            <!-- <li> -->
+                            <!--     <a href=@{PortfolioMonitorR PMHomeR}>Portfolio Manager -->
+                            <!-- <li> -->
+                            <!--     <a href="/table">Table -->
+                            <!-- <li> -->
+                            <!--     <a href="/form">Form -->
+                            <!-- <li class="divider"> -->
+                            <!-- <li class="dropdown-header">Guides -->
+                            <!-- <li> -->
+                            <!--     <a href=@{GoodR}>Good dialogue -->
+
+    <div class="container-fluid">
+        ^{pageBody pc}
+
+    <footer class="row-fluid footer" role="contentinfo">
+        <div class="container">
+            <p class="text-muted">Powered by #
+                <a href="http://www.yesodweb.com">yesod
+            <p class="text-muted">&copy; Copyright 2015, Tom
+            <ul class="list-inline">
+                <li>
+                    <a href="https://github.com/lhoghu">GitHub
+                <li class="muted">&middot;
+                <li>
+                    <a href=@{IndexR}>Index
+                <!-- <li class="muted">&middot; -->
+                <!-- <li> -->
+                <!--     <a href=@{PortfolioMonitorR PMHomeR}>Portfolio manager -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
