@@ -35,8 +35,8 @@
                         <ul class="dropdown-menu" role="menu">
                             <li>
                                 <a href=@{HomeR}>Home
-                            <!-- <li> -->
-                            <!--     <a href=@{PortfolioMonitorR PMHomeR}>Portfolio Manager -->
+                            <li>
+                                <a href=@{YpmSiteR YpmHomeR}>Portfolio Monitor
                             <!-- <li> -->
                             <!--     <a href="/table">Table -->
                             <!-- <li> -->

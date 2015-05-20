@@ -6,9 +6,12 @@ module Foundation where
 
 import Settings
 import Text.Hamlet (hamletFile)
+import Web.YahooPortfolioManager.App
 import Yesod
 
 data Intranet = Intranet 
+    { getYahooPortfolioManagerSite :: YahooPortfolioManagerSite
+    }
 
 mkYesodData "Intranet" $(parseRoutesFile "config/routes")
 

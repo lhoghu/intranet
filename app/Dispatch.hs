@@ -5,6 +5,7 @@ module Dispatch where
 
 import Foundation
 import Settings
+import Web.YahooPortfolioManager.App
 import Yesod
 
 mkYesodDispatch "Intranet" resourcesIntranet
