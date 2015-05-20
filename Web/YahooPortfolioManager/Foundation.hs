@@ -1,6 +1,6 @@
-{-# LANGUAGE QuasiQuotes     #-}
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE TypeFamilies    #-}
+{-# LANGUAGE TemplateHaskell   #-}
+{-# LANGUAGE TypeFamilies      #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Web.YahooPortfolioManager.Foundation where
 

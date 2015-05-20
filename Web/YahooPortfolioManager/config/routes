@@ -1,1 +1,2 @@
-/ YpmHomeR GET
+/home       YpmHomeR            GET
+/holdings   YpmCurrentHoldingsR GET

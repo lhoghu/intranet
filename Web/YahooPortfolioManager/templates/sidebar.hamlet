@@ -2,8 +2,10 @@
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
             <li>
-                <a href=@{toParent YpmHomeR}>Portfolio Monitor
-                <!-- BH.li $ BH.a BH.! BA.href "/portfolio/show" $ "Portfolio" -->
+                <a href=@{toParent YpmHomeR}>Portfolio Monitor Home
+        <ul class="nav nav-sidebar">
+            <li>
+                <a href=@{toParent YpmCurrentHoldingsR}>Current Holdings
                 <!-- BH.li $ BH.a BH.! BA.href "/portfolio/divs" $ "Dividends" -->
                 <!-- BH.li $ BH.a BH.! BA.href "/portfolio/mark" $ "Current Value" -->
         <ul class="nav nav-sidebar">

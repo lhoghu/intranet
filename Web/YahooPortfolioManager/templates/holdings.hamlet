@@ -1,0 +1,22 @@
+<h1>Current Holdings
+
+<div>
+    $if null position
+        <p> No positions
+    $else
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Symbol
+                    <th>Currency
+                    <th>Trade Date
+                    <th>Units
+                    <th>Price
+            <tbody>
+            $forall p <- position
+                <tr>
+                    <td>#{format $ YT.possymbol p}
+                    <td>#{format $ YT.poscurrency p}
+                    <td>#{format $ YT.posdate p}
+                    <td>#{format $ YT.posposition p}
+                    <td>#{format $ YT.posstrike p}
