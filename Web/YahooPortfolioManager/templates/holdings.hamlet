@@ -1,5 +1,8 @@
-<h1>Current Holdings
+<h1 class="page-header">Current Holdings
 
+<p>Holdings can be updated via the #
+    <a href=@{toParent YpmAddTransactionR}>Add Transaction
+    \ link
 <div>
     $if null position
         <p> No positions
@@ -13,10 +16,10 @@
                     <th>Units
                     <th>Price
             <tbody>
-            $forall p <- position
-                <tr>
-                    <td>#{format $ YT.possymbol p}
-                    <td>#{format $ YT.poscurrency p}
-                    <td>#{format $ YT.posdate p}
-                    <td>#{format $ YT.posposition p}
-                    <td>#{format $ YT.posstrike p}
+                $forall p <- position
+                    <tr>
+                        <td>#{format $ YT.possymbol p}
+                        <td>#{format $ YT.poscurrency p}
+                        <td>#{format $ YT.posdate p}
+                        <td>#{format $ YT.posposition p}
+                        <td>#{format $ YT.posstrike p}

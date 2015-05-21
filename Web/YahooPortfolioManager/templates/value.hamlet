@@ -1,0 +1,34 @@
+<h1 class="page-header">Current value
+
+<div>
+    $if null position
+        <p> No quote data
+    $else
+        <p> Quotes are latest available retrieved from #
+            <a href="https://uk.finance.yahoo.com/">Yahoo
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Symbol
+                    <th>Allocation (%)
+                    <th>Price
+                    <th>Cost
+                    <th>Current value
+                    <th>Change
+                    <th>(%)
+                    <th>Dividends
+                    <th>PnL
+                    <th>(%)
+            <tbody>
+                $forall p <- position
+                    <tr>
+                        <td>#{format $ YT.prtfsymbol p}
+                        <td>#{format $ YT.prtfalloc p}
+                        <td>#{format $ YT.prtfprice p}
+                        <td>#{format $ YT.prtfcost p}
+                        <td>#{format $ YT.prtfcurrent p}
+                        <td>#{format $ YT.prtfchange p}
+                        <td>#{format $ Percent $ YT.prtfpctchange p}
+                        <td>#{format $ YT.prtfdiv p}
+                        <td>#{format $ YT.prtfpnl p}
+                        <td>#{format $ Percent $ YT.prtfpctpnl p}

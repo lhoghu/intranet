@@ -1,2 +1,6 @@
-/home       YpmHomeR            GET
-/holdings   YpmCurrentHoldingsR GET
+/home               YpmHomeR            GET
+/holdings           YpmCurrentHoldingsR GET
+/dividends          YpmDividendsR       GET
+/value              YpmCurrentValueR    GET
+/add/dividend       YpmAddDividendR     GET
+/add/transaction    YpmAddTransactionR  GET

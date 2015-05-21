@@ -1,0 +1,21 @@
+<h1 class="page-header">Dividend history
+
+<p>Dividends can be updated via the #
+    <a href=@{toParent YpmAddDividendR}>Add Dividend
+    \ link
+<div>
+    $if null dividend
+        <p> No dividend payments
+    $else
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Symbol
+                    <th>Date
+                    <th>Dividend
+            <tbody>
+                $forall d <- dividend
+                    <tr>
+                        <td>#{format $ YT.divsymbol d}
+                        <td>#{format $ YT.divdate d}
+                        <td>#{format $ YT.dividend d}

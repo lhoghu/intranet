@@ -1,3 +1,24 @@
-<h1> Portfolio Monitor
+<h1 class="page-header">Portfolio Monitor
 
-<p> Introduction to the portfolio monitor, with links to github and yahoo
+<p>This is the web interface to a portfolio monitoring application that shows the current value of a portfolio specified by the user. The backend is written in haskell. The source is found on #
+    <a href="https://github.com/lhoghu/yahoo-portfolio-manager">github.
+<p>The current value uses intra-day quote data provided by #
+    <a href="https://uk.finance.yahoo.com">Yahoo. 
+    The user should enter the symbols, as recognised by Yahoo, they wish to monitor.
+<p>The dividend history can also be entered if the user wishes to incorporate dividend payments in their pnl view though this is not required by the application.
+
+<h2 class="sub-header">Navigation
+<p>The web interface supports the following actions:
+<ul>
+    <li>
+        <a href=@{toParent YpmCurrentHoldingsR}>View current holdings
+    <li>
+        <a href=@{toParent YpmDividendsR}>View dividend history
+    <li>
+        <a href=@{toParent YpmCurrentValueR}>View current value
+    <li>
+        <a href=@{toParent YpmAddTransactionR}>Add Transaction
+    <li>
+        <a href=@{toParent YpmAddDividendR}>Add Dividend
+
+A command line interface also exists on the linux desktop with a slightly wider feature set (e.g. browsing symbols in yahoo, customised views of the portfolio...)

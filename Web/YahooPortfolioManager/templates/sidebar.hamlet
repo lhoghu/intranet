@@ -6,11 +6,11 @@
         <ul class="nav nav-sidebar">
             <li>
                 <a href=@{toParent YpmCurrentHoldingsR}>Current Holdings
-                <!-- BH.li $ BH.a BH.! BA.href "/portfolio/divs" $ "Dividends" -->
-                <!-- BH.li $ BH.a BH.! BA.href "/portfolio/mark" $ "Current Value" -->
+                <a href=@{toParent YpmDividendsR}>Dividend History
+                <a href=@{toParent YpmCurrentValueR}>Current Value
         <ul class="nav nav-sidebar">
-            <!-- <li> -->
-            <!--     <a BH.! BA.href "/portfolio/addd" $ "Add Dividend" -->
-            <!--     BH.li $ BH.a BH.! BA.href "/portfolio/addt" $ "Add Transaction" -->
+            <li>
+                <a href=@{toParent YpmAddTransactionR}>Add Transaction
+                <a href=@{toParent YpmAddDividendR}>Add Dividend
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         ^{content}

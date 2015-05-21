@@ -1,4 +1,5 @@
 {-# LANGUAGE FlexibleInstances     #-}
+{-# LANGUAGE QuasiQuotes           #-}
 {-# LANGUAGE OverloadedStrings     #-}
 {-# LANGUAGE TemplateHaskell       #-}
 
@@ -48,7 +49,8 @@ instance Format Percent where
     format (Percent Nothing) = "-" 
 
 getYpmHomeR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
-getYpmHomeR = 
+getYpmHomeR = do
+    toParent <- getRouteToParent
     ypmLayout 
         "Portfolio Monitor - Home"
         $(hamletFile "Web/YahooPortfolioManager/templates/ypmHome.hamlet")
@@ -56,5 +58,36 @@ getYpmHomeR =
 getYpmCurrentHoldingsR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
 getYpmCurrentHoldingsR = do
     position <- liftIO $ YD.withConnection YD.fetchPositions 
+    toParent <- getRouteToParent
     ypmLayout "Portfolio Monitor - Holdings" $ do
         $(hamletFile "Web/YahooPortfolioManager/templates/holdings.hamlet")
+
+getYpmDividendsR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
+getYpmDividendsR = do
+    dividend <- liftIO $ YD.withConnection YD.fetchDividends
+    toParent <- getRouteToParent
+    ypmLayout "Portfolio Monitor - Dividends" $ do
+        $(hamletFile "Web/YahooPortfolioManager/templates/dividends.hamlet")
+
+fetchValue :: YD.Connection -> IO [YT.Portfolio]
+fetchValue conn = do
+    symbols <- YD.fetchSymbols conn 
+    YD.populateQuotesTable conn symbols
+    YD.updateFx conn
+    YD.fetchPortfolio conn
+
+getYpmCurrentValueR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
+getYpmCurrentValueR = do
+    position <- liftIO $ YD.withConnection fetchValue
+    ypmLayout "Portfolio Monitor - Current Value" $ do
+        $(hamletFile "Web/YahooPortfolioManager/templates/value.hamlet")
+
+getYpmAddTransactionR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
+getYpmAddTransactionR = do
+    ypmLayout "Portfolio Monitor - Add Transaction" $ do
+        $(hamletFile "Web/YahooPortfolioManager/templates/addTransaction.hamlet")
+
+getYpmAddDividendR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
+getYpmAddDividendR = do
+    ypmLayout "Portfolio Monitor - Add Dividend" $ do
+        $(hamletFile "Web/YahooPortfolioManager/templates/addDividend.hamlet")
