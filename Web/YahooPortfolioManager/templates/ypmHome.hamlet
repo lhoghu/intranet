@@ -3,7 +3,7 @@
 <p>This is the web interface to a portfolio monitoring application that shows the current value of a portfolio specified by the user. The backend is written in haskell. The source is found on #
     <a href="https://github.com/lhoghu/yahoo-portfolio-manager">github.
 <p>The current value uses intra-day quote data provided by #
-    <a href="https://uk.finance.yahoo.com">Yahoo. 
+    <a href="https://uk.finance.yahoo.com">Yahoo.
     The user should enter the symbols, as recognised by Yahoo, they wish to monitor.
 <p>The dividend history can also be entered if the user wishes to incorporate dividend payments in their pnl view though this is not required by the application.
 

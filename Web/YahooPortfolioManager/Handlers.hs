@@ -1,20 +1,21 @@
 {-# LANGUAGE FlexibleInstances     #-}
+{-# LANGUAGE TypeFamilies          #-}
 {-# LANGUAGE QuasiQuotes           #-}
 {-# LANGUAGE OverloadedStrings     #-}
 {-# LANGUAGE TemplateHaskell       #-}
 
 module Web.YahooPortfolioManager.Handlers where
 
+import Control.Applicative
 import Control.Monad.Trans (liftIO) 
 import Data.Text (Text, pack)
 import qualified Data.YahooPortfolioManager.DbAdapter as YD
 import qualified Data.YahooPortfolioManager.Types as YT
 import Text.Hamlet (hamletFile)
 import Text.Printf
+import Web.YahooPortfolioManager.Forms
 import Web.YahooPortfolioManager.Foundation 
 import Yesod
-
-type YPMS = YahooPortfolioManagerSite
 
 ypmLayout :: Yesod master => Html
                           -> HtmlUrl (Route master)
@@ -84,10 +85,33 @@ getYpmCurrentValueR = do
 
 getYpmAddTransactionR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
 getYpmAddTransactionR = do
+    toParent <- getRouteToParent
     ypmLayout "Portfolio Monitor - Add Transaction" $ do
         $(hamletFile "Web/YahooPortfolioManager/templates/addTransaction.hamlet")
 
+getYpmInputTransactionR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
+getYpmInputTransactionR = do
+    position <- runInputGet $ YT.Position
+                <$> ireq (textToStringField symbolField) "possymbol"
+                <*> ireq currencyField "poscurrency"
+                <*> ireq dateField "posdate"
+                <*> ireq doubleField "posposition"
+                <*> ireq doubleField "posstrike"
+    liftIO . YD.withConnection $ (flip YD.insertPosition) position
+    getYpmCurrentHoldingsR
+
 getYpmAddDividendR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
 getYpmAddDividendR = do
+    toParent <- getRouteToParent
     ypmLayout "Portfolio Monitor - Add Dividend" $ do
         $(hamletFile "Web/YahooPortfolioManager/templates/addDividend.hamlet")
+
+
+getYpmInputDividendR :: Yesod master => HandlerT YPMS (HandlerT master IO) Html
+getYpmInputDividendR = do
+    dividend <- runInputGet $ YT.Dividend
+                <$> ireq (textToStringField symbolField) "divSymbol"
+                <*> ireq doubleField "divDiv"
+                <*> ireq dateField "divDate"
+    liftIO . YD.withConnection $ (flip YD.insertDividend) dividend
+    getYpmDividendsR

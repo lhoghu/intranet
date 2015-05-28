@@ -28,6 +28,7 @@ executable intranet
                        template-haskell,
                        yahoo-portfolio-manager,
                        mtl,
-                       text
+                       text,
+                       regex-compat
   hs-source-dirs:      ., app 
   default-language:    Haskell2010

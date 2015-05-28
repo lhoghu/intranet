@@ -1,1 +1,19 @@
-<p>Site under construction
+<h1 class="page-header">Add Transaction
+
+<form action=@{toParent YpmInputTransactionR}>
+    <div class="form-group">
+        <label for="possymbol">Symbol
+        <input type=text name=possymbol class="form-control" placeholder="Enter symbol">
+    <div class="form-group">
+        <label for="poscurrency">Currency
+        <input type=text name=poscurrency class="form-control" placeholder="Enter currency">
+    <div class="form-group">
+        <label for="posdate">Date
+        <input type=text name=posdate class="form-control" placeholder="Enter date (yyyy-mm-dd)">
+    <div class="form-group">
+        <label for="posposition">Number of units
+        <input type=text name=posposition class="form-control" placeholder="Enter number of units purchased">
+    <div class="form-group">
+        <label for="posstrike">Price per unit
+        <input type=text name=posstrike class="form-control" placeholder="Enter price per unit">
+    <input type=submit value="Add">

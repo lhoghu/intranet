@@ -4,3 +4,5 @@
 /value              YpmCurrentValueR    GET
 /add/dividend       YpmAddDividendR     GET
 /add/transaction    YpmAddTransactionR  GET
+/input/dividend     YpmInputDividendR   GET
+/input/transaction  YpmInputTransactionR   GET

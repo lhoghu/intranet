@@ -8,6 +8,8 @@ import Yesod
 
 data YahooPortfolioManagerSite = YahooPortfolioManagerSite
 
+type YPMS = YahooPortfolioManagerSite
+
 mkYesodSubData 
     "YahooPortfolioManagerSite" 
     $(parseRoutesFile "Web/YahooPortfolioManager/config/routes")

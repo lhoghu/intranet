@@ -1,1 +1,13 @@
-<p>Site under construction
+<h1 class="page-header">Add Dividend
+
+<form action=@{toParent YpmInputDividendR}>
+    <div class="form-group">
+        <label for="divSymbol">Symbol
+        <input type=text name=divSymbol class="form-control" placeholder="Enter symbol">
+    <div class="form-group">
+        <label for="divDate">Date
+        <input type=text name=divDate class="form-control" placeholder="Enter date (yyyy-mm-dd)">
+    <div class="form-group">
+        <label for="divDiv">Dividend
+        <input type=text name=divDiv class="form-control" placeholder="Enter dividend per share">
+    <input type=submit value="Add dividend">
