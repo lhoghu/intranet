@@ -1,1 +1,2 @@
 /home               NotebookHomeR            GET
+/blog               NotebookBlogR            GET

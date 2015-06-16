@@ -33,3 +33,10 @@ getNotebookHomeR = do
     lift $ defaultLayout $ do
         setTitle "Notebook - Home"
         toWidget $(hamletFile "Web/Notebook/templates/notebookHome.hamlet")
+
+getNotebookBlogR :: Yesod master => HandlerT Notebook (HandlerT master IO) Html
+getNotebookBlogR = do
+    toParent <- getRouteToParent
+    lift $ defaultLayout $ do
+        setTitle "Notebook"
+        toWidget $(hamletFile "Web/Notebook/templates/notebookBlog.hamlet")
