@@ -1,0 +1,26 @@
+<h1 class="page-header">Notebook Homepage
+
+<p>This is the location to add notes, date-stamped, and view them subsequently, in a blog style note taking application
+
+<!-- <p>Tips for journal style content # -->
+<!--     <a href="http://www.lifehacker.co.uk/2015/06/16/write-journal"> here: -->
+<!--  -->
+<!--     <blockquote> -->
+<!--         <p> -->
+<!--             <strong>Write down what you’re looking forward to -->
+<!--                 <br /> -->
+<!--             People who devote time to anticipating fun experiences are happier. -->
+<!--             <br /> So at least once a week, make plans, write them down and when you need a boost, look at the great things you have coming up... -->
+<!--         <p> -->
+<!--             <strong>Write down your progress -->
+<!--                 <br /> Want to know your strengths and weaknesses? Make predictions, write them down and compare against results. This is an excellent way to see where your natural abilities are and if you’re improving. -->
+<!--         <p> -->
+<!--             <strong>Write down your anxieties -->
+<!--                 <br /> -->
+<!--             Research shows writing about your worries can calm you and even increase performance... -->
+<!--  -->
+<!--     From full article -->
+<!--     <a = href="http://time.com/3914538/notebook-writing-life-better/"> here -->
+<!--  -->
+<!-- <p>Would also like place to store interesting links -->
+<!-- <p>And add some search functionality (yesod book has section on this using sphinx) -->

@@ -30,13 +30,15 @@
                     <li>
                         <a href="/index">Index
                     <li class="dropdown">
-                        <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">Dropdown #
+                        <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">Applications #
                             <span class="caret">
                         <ul class="dropdown-menu" role="menu">
                             <li>
                                 <a href=@{HomeR}>Home
                             <li>
                                 <a href=@{YpmSiteR YpmHomeR}>Portfolio Monitor
+                            <li>
+                                <a href=@{NotebookR NotebookHomeR}>Notebook
                             <!-- <li> -->
                             <!--     <a href="/table">Table -->
                             <!-- <li> -->

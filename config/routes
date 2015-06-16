@@ -1,3 +1,4 @@
 /home   HomeR   GET
 /index  IndexR  GET
 /portfolio-monitor  YpmSiteR    YahooPortfolioManagerSite   getYahooPortfolioManagerSite
+/notebook           NotebookR   Notebook                    getNotebook

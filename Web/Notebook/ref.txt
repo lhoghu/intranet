@@ -1,0 +1,19 @@
+Tips for journal content here
+http://www.lifehacker.co.uk/2015/06/16/write-journal
+
+Write down what you’re looking forward to
+    People who devote time to anticipating fun experiences are happier.
+    So at least once a week, make plans, write them down and when you need a boost, look at the great things you have coming up...
+
+Write down your progress
+    Want to know your strengths and weaknesses? Make predictions, write them down and compare against results. This is an excellent way to see where your natural abilities are and if you’re improving.
+
+Write down your anxieties
+    Research shows writing about your worries can calm you and even increase performance...
+
+From full article here
+http://time.com/3914538/notebook-writing-life-better/
+
+
+Would also like place to store interesting links
+And add some search functionality (yesod book has section on this using sphinx)

@@ -5,6 +5,7 @@ module Handlers where
 
 import Foundation
 import Settings
+import Web.Notebook.App
 import Web.YahooPortfolioManager.App
 import Yesod
 

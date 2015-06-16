@@ -5,3 +5,5 @@
         <a href=@{HomeR}>Home
     <li>
         <a href=@{YpmSiteR YpmHomeR}>Portfolio Monitor
+    <li>
+        <a href=@{NotebookR NotebookHomeR}>Notebook
