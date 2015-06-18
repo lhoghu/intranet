@@ -14,3 +14,4 @@ cabal.sandbox.config
 *.swp
 .dir-locals.el
 client_session_key.aes
+notebook.db*

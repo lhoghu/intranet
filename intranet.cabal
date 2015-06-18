@@ -21,6 +21,12 @@ executable intranet
   -- other-extensions:    
   build-depends:       base,
                        yesod,
+                       yesod-form,
+                       persistent-sqlite,
+                       http-conduit,
+                       http-client-tls,
+                       monad-logger,
+                       time,
                        yesod-test,
                        warp,
                        shakespeare,

@@ -1,2 +1,3 @@
 /home               NotebookHomeR            GET
-/blog               NotebookBlogR            GET
+/notes              NotebookBlogR            GET POST
+/notes/#NoteId      NoteR                    GET POST
