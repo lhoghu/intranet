@@ -2,7 +2,6 @@
 $if null notes
     <p> No notes have been recorded
 $else
-    <p> Listing will appear here
     <ul>
         $forall Entity noteId note <- notes
             <li>

@@ -1,0 +1,19 @@
+<h1>#{noteTitle note}
+<article>#{noteContent note}
+<section .comments>
+    <h2>Comments
+    $if null comments
+        <p> No comments
+    $else
+        $forall Comment _note posted text <- comments
+            <div .comment>
+                <span .at>#{show posted}
+                <div .content>#{text}
+                <br \>
+    <section>
+        <h3>Add comment
+        <form method=post enctype=#{enctype}>
+            ^{commentWidget}
+            <div>
+                <input type=submit value="Add comment">
+<a href=@{toParent NotebookBlogR}>Back to notes

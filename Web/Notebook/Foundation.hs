@@ -24,6 +24,11 @@ share [mkPersist sqlSettings, mkMigrate "migrateNotebook"] [persistLowerCase|
         title Text
         posted UTCTime
         content Html
+
+    Comment
+        note NoteId
+        posted UTCTime
+        text Textarea
 |]
 
 data Notebook = Notebook {

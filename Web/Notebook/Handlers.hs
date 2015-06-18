@@ -18,28 +18,50 @@ import Web.Notebook.Foundation
 import Yesod
 import Yesod.Form.Nic (YesodNic, nicHtmlField)
 
-
--- notebookLayout :: Yesod master => Html
---                                -> HtmlUrl (Route master)
---                                -> HandlerT Notebook (HandlerT master IO) Html
--- notebookLayout title widget = do
---     -- Need to lift the child site url to the parent site in order
---     -- to create links within the subsite: see use of toParent in 
---     -- sidebar.hamlet (http://www.yesodweb.com/blog/2013/03/big-subsite-rewrite)
---     toParent <- getRouteToParent
---     let content = widget 
---     lift $ defaultLayout $ do
---         setTitle title
-
-noteForm :: (Yesod master, RenderMessage master FormMessage, YesodNic master) =>
+-- Form to create new notes
+noteForm :: ( Yesod master
+            , RenderMessage master FormMessage
+            , YesodNic master) =>
             Html -> 
             MForm (HandlerT master IO) 
-                  (FormResult Note, (WidgetT (HandlerSite (HandlerT master IO)) IO ()))
+                  ( FormResult Note
+                  , (WidgetT (HandlerSite (HandlerT master IO)) IO ()))
 noteForm = renderDivs $ Note
     <$> areq textField (fieldSettingsLabel ("Title" :: Text)) Nothing
     <*> lift (liftIO getCurrentTime)
     <*> areq nicHtmlField (fieldSettingsLabel ("Content" :: Text)) Nothing
+-- noteForm extra = lift $ do
+--     (titleRes, titleView) <- mreq textField "this is not used" Nothing
+--     (timeRes, timeView) <- (getCurrentTime)
+--     (contentRes, contentView) <- mreq nicHtmlField "neither is this" Nothing
+--     let noteRes = Note <$> titleRes <*> timeRes <*> contentRes
+--     let widget = do
+--                     [whamlet|
+--                         #{extra}
+--                         <div>
+--                             <p> Title
+--                             ^{fvInput titleView}
+--                         <div>
+--                             <p> Content
+--                             ^{fvInput contentView}
+--                     |]
+--     return (noteRes, widget)
 
+-- Form to create new comments
+commentForm :: ( Yesod master
+               , RenderMessage master FormMessage
+               , YesodNic master) =>
+               NoteId -> 
+               Html ->
+               MForm (HandlerT master IO) 
+                     ( FormResult Comment
+                     , (WidgetT (HandlerSite (HandlerT master IO)) IO ()))
+commentForm noteId = renderDivs $ Comment
+    <$> pure noteId
+    <*> lift (liftIO getCurrentTime)
+    <*> areq textareaField (fieldSettingsLabel ("Comment" :: Text)) Nothing
+
+-- Notebook homepage
 getNotebookHomeR :: Yesod master => HandlerT Notebook (HandlerT master IO) Html
 getNotebookHomeR = do
     toParent <- getRouteToParent
@@ -47,6 +69,7 @@ getNotebookHomeR = do
         setTitle "Notebook - Home"
         toWidget $(hamletFile "Web/Notebook/templates/notebookHome.hamlet")
 
+-- Display a list of the notes stored in the db
 getNotebookBlogR :: (Yesod master, RenderMessage master FormMessage, YesodNic master) =>
                     YesodPersist master =>
                     YesodPersistBackend master ~ SqlBackend => 
@@ -56,25 +79,16 @@ getNotebookBlogR = do
     
     -- retrieve notes, most recent first
     notes <- lift $ runDB $ selectList [] [Desc NotePosted]
-    (noteWidget, enctype) <- lift $ generateFormPost noteForm
+    (note, enctype) <- lift $ generateFormPost noteForm
+    
+    pc <- lift $ widgetToPageContent note
+    let noteWidget = pageBody pc
+
     lift $ defaultLayout $ do
         setTitle "Notebook"
-        [whamlet|
-        <h1> Notes
-        $if null notes
-            <p> No notes have been recorded
-        $else
-            <ul>
-                $forall Entity noteId note <- notes
-                    <li>
-                        <a href=@{toParent $ NoteR noteId} > #{noteTitle note}
-        <form method=post enctype=#{enctype}>
-            ^{noteWidget}
-            <div>
-                <input type=submit value="Create new note">
-        |]
-        --toWidget $(hamletFile "Web/Notebook/templates/notebookBlog.hamlet")
+        toWidget $(hamletFile "Web/Notebook/templates/notebookBlog.hamlet")
 
+-- Add a new note to the db
 postNotebookBlogR :: ( Yesod master
                      , RenderMessage master FormMessage
                      , YesodNic master) =>
@@ -82,7 +96,6 @@ postNotebookBlogR :: ( Yesod master
                     YesodPersistBackend master ~ SqlBackend => 
                     HandlerT Notebook (HandlerT master IO) Html
 postNotebookBlogR = do
-    --toParent <- getRouteToParent
     ((res, noteWidget), enctype) <- lift $ runFormPost noteForm
     case res of
         FormSuccess note -> do
@@ -93,11 +106,13 @@ postNotebookBlogR = do
                 setTitle "There were errors during submission, please try again"
                 [whamlet|
                     <form method=post enctype=#{enctype}>
-                    ^{noteWidget}
-                    <div>
-                        <input type=submit value="Add note">
+                        ^{noteWidget}
+                        <div>
+                            <input type=submit value="Add note">
                 |]
 
+-- Display a single note along with the associated comments, and provide
+-- a form to add new comments
 getNoteR :: (Yesod master, RenderMessage master FormMessage, YesodNic master) =>
                     YesodPersist master =>
                     YesodPersistBackend master ~ SqlBackend => 
@@ -105,38 +120,39 @@ getNoteR :: (Yesod master, RenderMessage master FormMessage, YesodNic master) =>
                     HandlerT Notebook (HandlerT master IO) Html
 getNoteR noteId = do
     toParent <- getRouteToParent
-    (note) <- lift $ runDB $ do --(note, comments) <- runDB $ do
+    (note, comments) <- lift $ runDB $ do
         note <- get404 noteId
-        --comments <- selectList [CommentEntry ==. entryId] [Asc CommentPosted]
-        return (note) --, map entityVal comments)
+        
+        -- Show comments, oldest first
+        comments <- selectList [CommentNote ==. noteId] [Asc CommentPosted]
+        return (note, map entityVal comments)
+    (comment, enctype) <- lift $ generateFormPost (commentForm noteId)
+
+    pc <- lift $ widgetToPageContent comment
+    let commentWidget = pageBody pc
+
     lift $ defaultLayout $ do
         setTitle $ toHtml $ noteTitle note
-        [whamlet|
-            <h2>#{noteTitle note}
-            <article>#{noteContent note}
-            <a href=@{toParent NotebookBlogR}>Back to notes
-            |]
-        --     <section .comments>
-        --         <h1>_{MsgCommentsHeading}
-        --         $if null comments
-        --             <p> No comments
-        --         $else
-        --             $forall Comment _entry posted _user name text <- comments
-        --                 <div .comment>
-        --                     <span .by>#{name}
-        --                     <span .at>#{show posted}
-        --                     <div .content>#{text}
-        --                     <section>
-        --                         <h3>Add comment
-        --                             <form method=post enctype=#{enctype}>
-        --                             ^{commentWidget}
-        --                             <div>
-        --                                 <input type=submit value="Add comment">
-        -- |]
+        toWidget $(hamletFile "Web/Notebook/templates/note.hamlet")
 
+-- Add a new comments
 postNoteR :: (Yesod master, RenderMessage master FormMessage, YesodNic master) =>
                     YesodPersist master =>
                     YesodPersistBackend master ~ SqlBackend => 
                     NoteId ->
                     HandlerT Notebook (HandlerT master IO) Html
-postNoteR = undefined
+postNoteR noteId = do
+    ((res, commentWidget), enctype) <- lift $ runFormPost (commentForm noteId)
+    case res of
+        FormSuccess comment -> do
+            _ <- lift $ runDB $ insert comment
+            setMessage "Comment added"
+            redirect $ NoteR noteId
+            lift $ defaultLayout $ do
+                setTitle "There was an error with the comment submission, please try again"
+                [whamlet|
+                    <form method=post enctype=#{enctype}>
+                    ^{commentWidget}
+                    <div>
+                        <input type=submit value="Add comment">
+                |]
